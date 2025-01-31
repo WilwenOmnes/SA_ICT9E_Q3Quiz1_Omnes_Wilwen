@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F8F3E6;
+            background-image: url('math2.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .wrapper {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+        }
+        .header {
+            background-color: #FFDDC1;
+            color: #5D576B;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        .box {
+            background: #D4E2D4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            border: 2px solid #B5C99A;
+        }
+        .btn-toggle {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            width: 150px;
+            border: none;
+        }
+        .yellow { background-color: #FFECB3; color: #6D597A; }
+        .black { background-color: #B5C99A; color: #5D576B; }
+        .green { background-color: #A7D7C5; color: #3D405B; }
+        .hidden { display: none; }
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+            color: #6D597A;
+        }
+        p span {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">Enter values for a and b to compute the following</div>
+        <div class="container mt-4">
+            <div class="box">
+                <label for="inputA">Enter value for a: </label>
+                <input type="number" id="inputA" value="20" class="form-control mb-3">
+                <label for="inputB">Enter value for b: </label>
+                <input type="number" id="inputB" value="5" class="form-control mb-3">
+            </div>
+            <div class="box">
+                <h2>Arithmetic Operator</h2>
+                <p>a. Exponent (a ↑ b): <span class="hidden" id="exp"></span></p>
+                <p>b. Mod (a % b): <span class="hidden" id="mod"></span></p>
+                <p>c. Sum (a + b): <span class="hidden" id="sum"></span></p>
+                <p>d. Difference (a - b): <span class="hidden" id="difference"></span></p>
+                <button class="btn btn-toggle yellow" onclick="computeAnswer('exp', 'mod', 'sum', 'difference', this)">Show Answer</button>
+            </div>
+            <div class="box">
+                <h2>Comparison Operator</h2>
+                <p>a. Is a greater than b? : <span class="hidden" id="greater"></span></p>
+                <p>b. Is a equal to b? : <span class="hidden" id="equal"></span></p>
+                <p>c. Is a less than or equal to b? : <span class="hidden" id="lessEqual"></span></p>
+                <p>d. Is a not equal to b? : <span class="hidden" id="notEqual"></span></p>
+                <button class="btn btn-toggle black" onclick="computeAnswer('greater', 'equal', 'lessEqual', 'notEqual', this)">Show Answer</button>
+            </div>
+            <div class="box">
+                <h2>Logical Operator</h2>
+                <p>a. (a ≤ b) && (a ≥ b): <span class="hidden" id="logical1"></span></p>
+                <p>b. (a ≠ b) || (a = b): <span class="hidden" id="logical2"></span></p>
+                <p>c. !(a < b): <span class="hidden" id="logical3"></span></p>
+                <p>d. (a > b) && (b < a): <span class="hidden" id="logical4"></span></p>
+                <button class="btn btn-toggle green" onclick="computeAnswer('logical1', 'logical2', 'logical3', 'logical4', this)">Show Answer</button>
+            </div>
+        </div>
+        <footer>&copy; 2025 Student Name</footer>
+    </div>
+    <script>
+        function computeAnswer(...args) {
+            const button = args.pop();
+            const a = parseInt(document.getElementById('inputA').value);
+            const b = parseInt(document.getElementById('inputB').value);
+
+            let calculations = {
+                exp: Math.pow(a, b),
+                mod: a % b,
+                sum: a + b,
+                difference: a - b,
+                greater: a > b,
+                equal: a == b,
+                lessEqual: a <= b,
+                notEqual: a != b,
+                logical1: (a <= b) && (a >= b),
+                logical2: (a != b) || (a == b),
+                logical3: !(a < b),
+                logical4: (a > b) && (b < a)
+            };
+
+            args.forEach(id => {
+                let element = document.getElementById(id);
+                element.textContent = calculations[id];
+                element.classList.toggle('hidden');
+            });
+
+            let isHidden = document.getElementById(args[0]).classList.contains('hidden');
+            button.textContent = isHidden ? "Show Answer" : "Hide Answer";
+        }
+    </script>
+</body>
+</html>
